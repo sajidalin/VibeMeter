@@ -111,6 +111,7 @@ export default function HomePage() {
   return (
     <div className='min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-purple-950 dark:via-pink-950 dark:to-orange-950'>
       {/* Header with Glass Effect */}
+
       <header className='bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-purple-200/50 dark:border-purple-800/50 sticky top-0 z-50 shadow-lg'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex flex-col sm:flex-row justify-between items-center py-6 sm:py-8 gap-6'>
