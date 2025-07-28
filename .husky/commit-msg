@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Check if the commit message follows conventional commit format
+# This is a basic check - you can enhance it with commitlint if needed
+commit_regex='^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}'
+
+if ! grep -qE "$commit_regex" "$1"; then
+    echo "❌ Commit message does not follow conventional commit format."
+    echo "Format: <type>(<scope>): <description>"
+    echo "Types: feat, fix, docs, style, refactor, test, chore"
+    echo "Example: feat(voting): add vote button component"
+    exit 1
+fi
+
+echo "✅ Commit message format is valid" 
