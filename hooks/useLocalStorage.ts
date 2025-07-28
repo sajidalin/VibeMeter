@@ -5,7 +5,7 @@ import { storageUtils } from '@/utils/storage';
 export const useLocalStorage = () => {
   const [votingState, setVotingState] = useState<VotingState>({
     hasVoted: false,
-    votedFor: null,
+    votedFor: [],
     voteTimestamp: null,
   });
 
@@ -21,11 +21,11 @@ export const useLocalStorage = () => {
   };
 
   const hasVotedForContestant = (contestantId: string): boolean => {
-    return votingState.hasVoted && votingState.votedFor === contestantId;
+    return votingState.votedFor.includes(contestantId);
   };
 
   const clearVotingState = () => {
-    const resetState = { hasVoted: false, votedFor: null, voteTimestamp: null };
+    const resetState = { hasVoted: false, votedFor: [], voteTimestamp: null };
     setVotingState(resetState);
     storageUtils.clearVotingState();
   };

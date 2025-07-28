@@ -141,7 +141,7 @@ describe('VoteButton with localStorage persistence', () => {
 
     // Setup default mock implementation
     mockUseLocalStorage.mockReturnValue({
-      votingState: { hasVoted: false, votedFor: null, voteTimestamp: null },
+      votingState: { hasVoted: false, votedFor: [], voteTimestamp: null },
       updateVotingState: mockUpdateVotingState,
       hasVotedForContestant: mockHasVotedForContestant,
       clearVotingState: jest.fn(),
@@ -191,7 +191,7 @@ describe('VoteButton with localStorage persistence', () => {
     // Simulate localStorage having a previous vote
     const previousVoteState = {
       hasVoted: true,
-      votedFor: 'contestant-1',
+      votedFor: ['contestant-1'],
       voteTimestamp: Date.now(),
     };
 
@@ -218,7 +218,7 @@ describe('VoteButton with localStorage persistence', () => {
   it('shows voted state when hasVotedForContestant returns true', () => {
     const storedVoteState = {
       hasVoted: true,
-      votedFor: 'contestant-1',
+      votedFor: ['contestant-1'],
       voteTimestamp: Date.now(),
     };
 
@@ -295,7 +295,7 @@ describe('VoteButton with localStorage persistence', () => {
   it('persists vote state across page reloads', () => {
     const voteState = {
       hasVoted: true,
-      votedFor: 'contestant-1',
+      votedFor: ['contestant-1'],
       voteTimestamp: Date.now(),
     };
 

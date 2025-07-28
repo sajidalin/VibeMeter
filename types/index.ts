@@ -15,7 +15,7 @@ export interface Vote {
 
 export interface VotingState {
   hasVoted: boolean;
-  votedFor: string | null;
+  votedFor: string[]; // Changed from string | null to string[] to support multiple votes
   voteTimestamp: number | null;
 }
 

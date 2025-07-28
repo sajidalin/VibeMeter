@@ -6,18 +6,18 @@ export const storageUtils = {
   getVotingState: (): VotingState => {
     try {
       if (typeof window === 'undefined') {
-        return { hasVoted: false, votedFor: null, voteTimestamp: null };
+        return { hasVoted: false, votedFor: [], voteTimestamp: null };
       }
 
       const stored = localStorage.getItem(VOTING_STATE_KEY);
       if (!stored) {
-        return { hasVoted: false, votedFor: null, voteTimestamp: null };
+        return { hasVoted: false, votedFor: [], voteTimestamp: null };
       }
 
       return JSON.parse(stored) as VotingState;
     } catch (error) {
       console.error('Error reading voting state from localStorage:', error);
-      return { hasVoted: false, votedFor: null, voteTimestamp: null };
+      return { hasVoted: false, votedFor: [], voteTimestamp: null };
     }
   },
 
@@ -41,6 +41,6 @@ export const storageUtils = {
 
   hasVotedForContestant: (contestantId: string): boolean => {
     const state = storageUtils.getVotingState();
-    return state.hasVoted && state.votedFor === contestantId;
+    return state.votedFor.includes(contestantId);
   },
 };

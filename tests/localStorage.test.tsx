@@ -23,7 +23,7 @@ describe('localStorage Persistence', () => {
   it('persists vote state in localStorage', () => {
     const testState: VotingState = {
       hasVoted: true,
-      votedFor: '1',
+      votedFor: ['1'],
       voteTimestamp: Date.now(),
     };
 
@@ -38,7 +38,7 @@ describe('localStorage Persistence', () => {
   it('retrieves vote state from localStorage', () => {
     const testState: VotingState = {
       hasVoted: true,
-      votedFor: '1',
+      votedFor: ['1'],
       voteTimestamp: Date.now(),
     };
 
@@ -57,7 +57,7 @@ describe('localStorage Persistence', () => {
 
     expect(state).toEqual({
       hasVoted: false,
-      votedFor: null,
+      votedFor: [],
       voteTimestamp: null,
     });
   });
@@ -69,7 +69,7 @@ describe('localStorage Persistence', () => {
 
     expect(state).toEqual({
       hasVoted: false,
-      votedFor: null,
+      votedFor: [],
       voteTimestamp: null,
     });
   });
@@ -85,7 +85,7 @@ describe('localStorage Persistence', () => {
   it('checks if user has voted for specific contestant', () => {
     const testState: VotingState = {
       hasVoted: true,
-      votedFor: '1',
+      votedFor: ['1', '2'],
       voteTimestamp: Date.now(),
     };
 
@@ -93,7 +93,8 @@ describe('localStorage Persistence', () => {
     localStorageMock.getItem.mockReturnValue(JSON.stringify(testState));
 
     expect(storageUtils.hasVotedForContestant('1')).toBe(true);
-    expect(storageUtils.hasVotedForContestant('2')).toBe(false);
+    expect(storageUtils.hasVotedForContestant('2')).toBe(true);
+    expect(storageUtils.hasVotedForContestant('3')).toBe(false);
   });
 
   it('handles localStorage errors gracefully', () => {
@@ -105,8 +106,27 @@ describe('localStorage Persistence', () => {
 
     expect(state).toEqual({
       hasVoted: false,
-      votedFor: null,
+      votedFor: [],
       voteTimestamp: null,
     });
+  });
+
+  it('supports voting for multiple contestants', () => {
+    const testState: VotingState = {
+      hasVoted: true,
+      votedFor: ['1', '2', '3'],
+      voteTimestamp: Date.now(),
+    };
+
+    localStorageMock.getItem.mockReturnValue(JSON.stringify(testState));
+
+    // Should return true for all voted contestants
+    expect(storageUtils.hasVotedForContestant('1')).toBe(true);
+    expect(storageUtils.hasVotedForContestant('2')).toBe(true);
+    expect(storageUtils.hasVotedForContestant('3')).toBe(true);
+
+    // Should return false for contestants not voted for
+    expect(storageUtils.hasVotedForContestant('4')).toBe(false);
+    expect(storageUtils.hasVotedForContestant('5')).toBe(false);
   });
 });

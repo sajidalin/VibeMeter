@@ -26,7 +26,7 @@ export const useContestantVoting = (contestant: Contestant) => {
       if (response.success) {
         const newVotingState: VotingState = {
           hasVoted: true,
-          votedFor: contestant.id,
+          votedFor: [...votingState.votedFor, contestant.id], // Add to existing votes
           voteTimestamp: Date.now(),
         };
         updateVotingState(newVotingState);
@@ -38,7 +38,7 @@ export const useContestantVoting = (contestant: Contestant) => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [contestant.id, hasVoted, updateVotingState]);
+  }, [contestant.id, hasVoted, updateVotingState, votingState.votedFor]);
 
   const canVote = !hasVoted && !isSubmitting;
 
