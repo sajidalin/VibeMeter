@@ -129,4 +129,25 @@ describe('localStorage Persistence', () => {
     expect(storageUtils.hasVotedForContestant('4')).toBe(false);
     expect(storageUtils.hasVotedForContestant('5')).toBe(false);
   });
+
+  it('notifies other components when localStorage changes', () => {
+    const mockDispatchEvent = jest.fn();
+    Object.defineProperty(window, 'dispatchEvent', {
+      value: mockDispatchEvent,
+      writable: true,
+    });
+
+    const testState: VotingState = {
+      hasVoted: true,
+      votedFor: ['1'],
+      voteTimestamp: Date.now(),
+    };
+
+    storageUtils.setVotingState(testState);
+
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'vibemeter_voting_state',
+      JSON.stringify(testState)
+    );
+  });
 });

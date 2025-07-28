@@ -23,6 +23,13 @@ Object.defineProperty(window, 'localStorage', {
   writable: true,
 });
 
+// Mock window events
+const mockDispatchEvent = jest.fn();
+Object.defineProperty(window, 'dispatchEvent', {
+  value: mockDispatchEvent,
+  writable: true,
+});
+
 describe('useContestantVoting', () => {
   const mockContestant: Contestant = {
     id: '1',
@@ -36,6 +43,7 @@ describe('useContestantVoting', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     localStorageMock.getItem.mockReturnValue(null);
+    mockDispatchEvent.mockClear();
   });
 
   it('initializes with correct default state', () => {
