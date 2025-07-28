@@ -89,7 +89,8 @@ describe('localStorage Persistence', () => {
       voteTimestamp: Date.now(),
     };
 
-    storageUtils.setVotingState(testState);
+    // Mock the localStorage to return our test state
+    localStorageMock.getItem.mockReturnValue(JSON.stringify(testState));
 
     expect(storageUtils.hasVotedForContestant('1')).toBe(true);
     expect(storageUtils.hasVotedForContestant('2')).toBe(false);

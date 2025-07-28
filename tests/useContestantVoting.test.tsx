@@ -5,7 +5,9 @@ import { Contestant } from '@/types';
 
 // Mock the API
 jest.mock('@/utils/api', () => ({
-  submitVote: jest.fn(),
+  apiUtils: {
+    submitVote: jest.fn(),
+  },
 }));
 
 // Mock localStorage
@@ -46,8 +48,8 @@ describe('useContestantVoting', () => {
   });
 
   it('submits vote successfully', async () => {
-    const { submitVote } = require('@/utils/api');
-    submitVote.mockResolvedValue({ success: true });
+    const { apiUtils } = require('@/utils/api');
+    apiUtils.submitVote.mockResolvedValue({ success: true });
 
     const { result } = renderHook(() => useContestantVoting(mockContestant));
 
@@ -55,16 +57,15 @@ describe('useContestantVoting', () => {
       await result.current.submitVote();
     });
 
-    expect(submitVote).toHaveBeenCalledWith(mockContestant.id);
+    expect(apiUtils.submitVote).toHaveBeenCalledWith(mockContestant.id);
     expect(result.current.hasVoted).toBe(true);
     expect(result.current.isSubmitting).toBe(false);
     expect(result.current.error).toBeNull();
   });
 
   it('handles vote submission error', async () => {
-    const { submitVote } = require('@/utils/api');
-    const errorMessage = 'Vote submission failed';
-    submitVote.mockRejectedValue(new Error(errorMessage));
+    const { apiUtils } = require('@/utils/api');
+    apiUtils.submitVote.mockRejectedValue(new Error('Network error'));
 
     const { result } = renderHook(() => useContestantVoting(mockContestant));
 
@@ -72,14 +73,14 @@ describe('useContestantVoting', () => {
       await result.current.submitVote();
     });
 
-    expect(result.current.error).toBe(errorMessage);
+    expect(result.current.error).toBe('Network error. Please try again.');
     expect(result.current.hasVoted).toBe(false);
     expect(result.current.isSubmitting).toBe(false);
   });
 
   it('prevents voting when already voted', async () => {
-    const { submitVote } = require('@/utils/api');
-    submitVote.mockResolvedValue({ success: true });
+    const { apiUtils } = require('@/utils/api');
+    apiUtils.submitVote.mockResolvedValue({ success: true });
 
     const { result } = renderHook(() => useContestantVoting(mockContestant));
 
@@ -93,13 +94,13 @@ describe('useContestantVoting', () => {
       await result.current.submitVote();
     });
 
-    expect(submitVote).toHaveBeenCalledTimes(1);
+    expect(apiUtils.submitVote).toHaveBeenCalledTimes(1);
     expect(result.current.hasVoted).toBe(true);
   });
 
   it('updates canVote state correctly', async () => {
-    const { submitVote } = require('@/utils/api');
-    submitVote.mockResolvedValue({ success: true });
+    const { apiUtils } = require('@/utils/api');
+    apiUtils.submitVote.mockResolvedValue({ success: true });
 
     const { result } = renderHook(() => useContestantVoting(mockContestant));
 
