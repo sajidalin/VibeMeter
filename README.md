@@ -1,26 +1,28 @@
 # VibeMeter - Live Talent Show Voting System
 
-VibeMeter lets audiences vote live for their favorite contestants in real time during a talent show. With a sleek interface, responsive design, and live vote tracking, VibeMeter turns audience engagement into real-time results - every vote counts, and every vibe matters.
+A beautiful, responsive live voting system for America's Got Talent-style shows built with React, Next.js, and TypeScript.
 
-## 🎯 Features
+## Features
 
-### Core Functionality
+- 🎯 **Live Voting**: Real-time voting with limited votes per user
+- 🎨 **Beautiful UI**: Modern design with gradients and animations
+- 📱 **Responsive**: Works perfectly on mobile, tablet, and desktop
+- ⚡ **Real-time Updates**: Live data polling every 5 seconds
+- 🧪 **Comprehensive Testing**: Unit tests for all components
+- 🎭 **Error Handling**: Graceful error boundaries and loading states
+- 💾 **Local Storage**: Persistent vote state management
+- 🔧 **Code Quality**: Prettier, ESLint, and Husky pre-commit hooks
 
-- **Live Voting System**: Real-time voting for contestants during live talent shows
-- **Vote Persistence**: localStorage-based vote state that persists across page reloads
-- **Duplicate Prevention**: Prevents users from voting multiple times for the same contestant
-- **Real-time Updates**: Live vote count updates every 5 seconds
-- **Responsive Design**: Optimized for mobile, tablet, and desktop devices
+## Tech Stack
 
-### Technical Features
+- **Frontend**: React 18, Next.js 14, TypeScript
+- **Styling**: Tailwind CSS v4, Shadcn/UI components
+- **Testing**: Jest, React Testing Library
+- **Code Quality**: Prettier, ESLint, Husky, lint-staged
+- **State Management**: Custom React hooks
+- **Build Tool**: Next.js App Router
 
-- **Custom Hooks**: Reusable hooks for contestant voting logic and live data management
-- **Error Boundaries**: Graceful error handling with fallback UIs
-- **TypeScript**: Full type safety throughout the application
-- **Testing**: Comprehensive test coverage including localStorage persistence tests
-- **Performance**: Optimized rendering and state management
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -29,196 +31,166 @@ VibeMeter lets audiences vote live for their favorite contestants in real time d
 
 ### Installation
 
-1. **Clone the repository**
+```bash
+# Clone the repository
+git clone <repository-url>
+cd VibeMeter
 
-   ```bash
-   git clone <repository-url>
-   cd VibeMeter
-   ```
+# Install dependencies
+npm install
 
-2. **Install dependencies**
+# Start development server
+npm run dev
+```
 
-   ```bash
-   npm install
-   ```
+### Available Scripts
 
-3. **Run the development server**
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run lint:fix     # Run ESLint with auto-fix
+npm run format       # Format code with Prettier
+npm run format:check # Check formatting
+npm test             # Run tests
+npm run test:watch   # Run tests in watch mode
+npm run test:coverage # Run tests with coverage
+```
 
-   ```bash
-   npm run dev
-   ```
+## Project Structure
 
-4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+```
+VibeMeter/
+├── app/                    # Next.js App Router pages
+├── components/             # React components
+│   ├── ui/                # Shadcn/UI components
+│   └── ...                # Custom components
+├── hooks/                 # Custom React hooks
+├── tests/                 # Unit tests
+├── types/                 # TypeScript type definitions
+├── utils/                 # Utility functions
+├── .husky/               # Git hooks (Husky)
+├── .cursor/              # Project documentation
+└── ...                   # Configuration files
+```
 
-## 🧪 Testing
+## Key Components
 
-### Run all tests
+### 🎯 **VoteButton**
+
+Interactive voting button with multiple states (normal, submitting, voted, disabled).
+
+### 🃏 **ContestantCard**
+
+Beautiful card displaying contestant information with vote count and voting interface.
+
+### 📊 **useContestantVoting**
+
+Custom hook managing individual contestant voting logic and state.
+
+### 🌐 **useLiveData**
+
+Custom hook for fetching and updating live data with polling mechanism.
+
+### 💾 **useLocalStorage**
+
+Custom hook for managing localStorage persistence of voting state.
+
+## Testing
+
+The project includes comprehensive unit tests:
+
+- **VoteButton Tests**: ✅ All passing (8/8)
+- **useContestantVoting Tests**: ⚠️ 4 failing (hook implementation)
+- **localStorage Tests**: ⚠️ 1 failing (storage implementation)
+
+Run tests with:
 
 ```bash
 npm test
 ```
 
-### Run tests in watch mode
+## Code Quality
 
-```bash
-npm run test:watch
+### Prettier Configuration
+
+- **Formatting**: Consistent code style across the project
+- **Configuration**: `.prettierrc` with optimal React/TypeScript settings
+- **Ignore**: `.prettierignore` excludes build files and dependencies
+
+### ESLint Integration
+
+- **Next.js Compatible**: Uses Next.js ESLint configuration
+- **Prettier Plugin**: ESLint works seamlessly with Prettier
+- **Custom Rules**: Appropriate warnings and disabled problematic rules
+
+### Husky Pre-commit Hooks
+
+- **Pre-commit**: Runs lint-staged for formatting and linting
+- **Commit-msg**: Enforces conventional commit format
+- **Automated**: Ensures code quality before every commit
+
+### Conventional Commits
+
+```
+<type>(<scope>): <description>
+
+Types: feat, fix, docs, style, refactor, test, chore
+Example: feat(voting): add vote button component
 ```
 
-### Run tests with coverage
+## Design Features
 
-```bash
-npm run test:coverage
-```
+### 🎨 **Visual Design**
 
-### Key Test Features
+- **Gradient Backgrounds**: Purple-to-pink-to-orange gradients
+- **Glass Morphism**: Header with backdrop blur effects
+- **Card Animations**: Hover effects with scale transforms
+- **Floating Particles**: Animated particles in contestant cards
+- **Heart Beat Animation**: Pulsing heart icons
+- **Glow Effects**: Subtle glow effects on avatars
 
-- **Vote Button Tests**: Tests for different button states (voted, submitting, disabled)
-- **localStorage Persistence**: Ensures vote state persists across page reloads
-- **Hook Testing**: Comprehensive testing of custom hooks
-- **Error Handling**: Tests for network errors and edge cases
+### 📱 **Responsive Design**
 
-## 📁 Project Structure
+- **Mobile-First**: All components start with mobile design
+- **Breakpoint System**: sm: (640px+), md: (768px+), lg: (1024px+)
+- **Flexible Grid**: 1 column mobile, 2 tablet, 3 desktop
+- **Typography Scaling**: Text sizes adapt to screen size
+- **Touch-Friendly**: Larger buttons and touch targets
 
-```
-VibeMeter/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout with error boundaries
-│   ├── page.tsx           # Main voting interface
-│   └── globals.css        # Global styles with Tailwind
-├── components/            # Reusable components
-│   ├── ui/               # Base UI components
-│   │   └── LoadingSpinner.tsx
-│   ├── ContestantCard.tsx
-│   ├── VoteButton.tsx
-│   └── ErrorBoundary.tsx
-├── hooks/                # Custom hooks
-│   ├── useContestantVoting.ts
-│   ├── useLiveData.ts
-│   └── useLocalStorage.ts
-├── types/                # TypeScript definitions
-│   └── index.ts
-├── utils/                # Utility functions
-│   ├── api.ts           # Simulated API calls
-│   └── storage.ts       # localStorage utilities
-├── tests/                # Test files
-│   ├── VoteButton.test.tsx
-│   ├── useContestantVoting.test.tsx
-│   └── localStorage.test.tsx
-└── public/               # Static assets
-```
+## Development Workflow
 
-## 🎨 Design Patterns
+1. **Code Changes**: Make your changes
+2. **Pre-commit**: Husky automatically runs lint-staged
+3. **Formatting**: Prettier formats your code
+4. **Linting**: ESLint checks for issues
+5. **Commit**: Conventional commit format enforced
+6. **Quality**: Code is consistently formatted and linted
 
-### 1. Custom Hooks Pattern
+## Deployment
 
-- **useContestantVoting**: Manages voting logic per contestant
-- **useLiveData**: Handles real-time data fetching with polling
-- **useLocalStorage**: Manages localStorage persistence
+The application is ready for deployment to any platform that supports Next.js:
 
-### 2. Error Boundary Pattern
+- **Vercel**: Recommended for Next.js applications
+- **Netlify**: Static site deployment
+- **AWS Amplify**: Full-stack deployment
+- **Docker**: Containerized deployment
 
-- Catches JavaScript errors anywhere in the component tree
-- Displays fallback UI when errors occur
-- Prevents entire app from crashing
-
-### 3. Responsive Design Pattern
-
-- Mobile-first approach with CSS Grid
-- Breakpoint-specific layouts
-- Touch-friendly interface
-
-### 4. State Management Pattern
-
-- Isolated state per contestant
-- localStorage for persistence
-- Optimistic updates with error handling
-
-## 🔧 Technical Implementation
-
-### Real-time Updates
-
-- Polling mechanism every 5 seconds
-- Simulated API with random vote increases
-- Graceful error handling for network issues
-
-### Vote Validation
-
-- Prevents duplicate votes using localStorage
-- Disables vote button after voting
-- Persists vote state across page reloads
-
-### Responsive Layout
-
-- CSS Grid with responsive breakpoints
-- Mobile-first design approach
-- Touch-friendly buttons and interactions
-
-### Error Handling
-
-- Network error fallbacks
-- localStorage error handling
-- User-friendly error messages
-
-## 🎯 Business Logic
-
-### Voting Rules
-
-1. Users can only vote once per contestant
-2. Vote state persists across browser sessions
-3. Real-time vote count updates
-4. Voting window can be enabled/disabled
-
-### Data Flow
-
-1. App loads with initial contestant data
-2. Live data polling updates vote counts
-3. User clicks vote button
-4. Vote is validated and submitted
-5. localStorage is updated with vote state
-6. UI reflects new vote status
-
-## 🚀 Deployment
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-### Start Production Server
-
-```bash
-npm start
-```
-
-## 📝 Development Notes
-
-### Key Prompts Used
-
-1. **Architecture Planning**: "Create a comprehensive plan for America's Got Talent-style voting system"
-2. **Custom Hooks**: "Implement reusable custom hooks for contestant voting logic"
-3. **Error Boundaries**: "Create error boundaries to catch and display fallback UIs"
-4. **Responsive Design**: "Design responsive layout for mobile, tablet, and desktop"
-5. **Testing**: "Create tests for localStorage persistence and vote button states"
-
-### Best Practices Implemented
-
-- **Separation of Concerns**: Clear separation between UI, logic, and data layers
-- **Type Safety**: Full TypeScript implementation
-- **Error Handling**: Comprehensive error boundaries and fallbacks
-- **Performance**: Optimized rendering and state updates
-- **Accessibility**: Proper ARIA labels and semantic HTML
-- **Testing**: Comprehensive test coverage with real-world scenarios
-
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
+4. Run tests: `npm test`
+5. Format code: `npm run format`
+6. Commit with conventional format
+7. Submit a pull request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
+
+---
+
+**VibeMeter** - Making talent shows more interactive and engaging! 🎭✨
